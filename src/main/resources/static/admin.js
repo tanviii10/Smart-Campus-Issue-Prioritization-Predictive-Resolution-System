@@ -14,7 +14,17 @@ row.insertCell(2).innerText = issue.category;
 row.insertCell(3).innerText = issue.priority;
 row.insertCell(4).innerText = issue.status;
 
-let action = row.insertCell(5);
+// IMAGE COLUMN
+let imgCell = row.insertCell(5);
+
+if(issue.imageUrl){
+    imgCell.innerHTML =
+    `<img src="/uploads/${issue.imageUrl}" width="100">`;
+}else{
+    imgCell.innerText = "No Image";
+}
+
+let action = row.insertCell(6);
 
 action.innerHTML =
 `<select onchange="updateStatus('${issue.id}', this.value)">
@@ -26,12 +36,3 @@ action.innerHTML =
 });
 
 });
-
-function updateStatus(id,status){
-
-fetch(`/issues/updateStatus/${id}?status=${status}`,{
-method:"PUT"
-})
-.then(()=>location.reload());
-
-}

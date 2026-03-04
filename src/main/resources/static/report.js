@@ -1,23 +1,24 @@
-function submitIssue(){
+document.getElementById("issueForm").addEventListener("submit", function(e){
 
-let description=document.getElementById("description").value;
-let severity=document.getElementById("severity").value;
-let location=document.getElementById("location").value;
+    e.preventDefault();
 
-fetch("/issues/create?description="+encodeURIComponent(description)
-+"&severity="+severity
-+"&location="+location)
+    let formData = new FormData(this);
 
-.then(res=>res.json())
-.then(data=>{
+    fetch("/issues/upload", {
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
 
-document.getElementById("result").innerHTML=
+        document.getElementById("result").innerHTML =
+        "<h3>Prediction Result</h3>" +
+        "Category: " + data.category + "<br>" +
+        "Priority: " + data.priority + "<br>" +
+        "Resolution Time: " + data.predictedResolutionTimeHours + " hours";
 
-"<h3>Prediction Result</h3>"+
-"Category: "+data.category+"<br>"+
-"Priority: "+data.priority+"<br>"+
-"Resolution Time: "+data.predictedResolutionTimeHours+" hours";
+        alert("Issue Submitted Successfully");
+
+    });
 
 });
-
-}

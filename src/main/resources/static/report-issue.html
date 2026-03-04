@@ -11,18 +11,20 @@
 
 <div class="form-box">
 
+<form id="issueForm">
+
 <label>Description</label>
-<textarea id="description"></textarea>
+<textarea name="description"></textarea>
 
 <label>Severity</label>
-<select id="severity">
+<select name="severity">
 <option>Low</option>
 <option>Medium</option>
 <option>High</option>
 </select>
 
 <label>Location</label>
-<select id="location">
+<select name="location">
 <option>Classroom</option>
 <option>Lab</option>
 <option>Campus Area</option>
@@ -31,11 +33,11 @@
 </select>
 
 <label>Upload Image</label>
-<input type="file" id="image">
+<input type="file" name="image">
 
-<button onclick="submitIssue()">Submit Issue</button>
+<button type="submit">Submit Issue</button>
 
-</div>
+</form>
 
 <div id="result"></div>
 

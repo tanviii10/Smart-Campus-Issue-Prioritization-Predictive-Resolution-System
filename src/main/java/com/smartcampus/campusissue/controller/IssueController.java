@@ -4,12 +4,16 @@ import com.smartcampus.campusissue.model.Issue;
 import com.smartcampus.campusissue.repository.IssueRepository;
 import com.smartcampus.campusissue.service.MLService;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/issues")
@@ -73,46 +77,71 @@ public class IssueController {
 
         List<Issue> issues = issueRepository.findAll();
 
-        int total = issues.size();
-        int pending = 0;
-        int resolved = 0;
-        int highPriority = 0;
-
         Map<String,Integer> categoryCount = new HashMap<>();
+        Map<String,Integer> priorityCount = new HashMap<>();
+        Map<String,Integer> statusCount = new HashMap<>();
 
         for(Issue issue : issues){
 
-            if(issue.getStatus().equalsIgnoreCase("Pending"))
-                pending++;
+            categoryCount.put(
+                issue.getCategory(),
+                categoryCount.getOrDefault(issue.getCategory(),0)+1
+            );
 
-            if(issue.getStatus().equalsIgnoreCase("Resolved"))
-                resolved++;
+            priorityCount.put(
+                issue.getPriority(),
+                priorityCount.getOrDefault(issue.getPriority(),0)+1
+            );
 
-            if(issue.getPriority().equalsIgnoreCase("High"))
-                highPriority++;
-
-            String cat = issue.getCategory();
-            categoryCount.put(cat, categoryCount.getOrDefault(cat,0)+1);
-        }
-
-        String mostCommonCategory = "";
-        int max = 0;
-
-        for(String key : categoryCount.keySet()){
-            if(categoryCount.get(key) > max){
-                max = categoryCount.get(key);
-                mostCommonCategory = key;
-            }
+            statusCount.put(
+                issue.getStatus(),
+                statusCount.getOrDefault(issue.getStatus(),0)+1
+            );
         }
 
         Map<String,Object> stats = new HashMap<>();
 
-        stats.put("totalIssues", total);
-        stats.put("pendingIssues", pending);
-        stats.put("resolvedIssues", resolved);
-        stats.put("highPriorityIssues", highPriority);
-        stats.put("mostCommonCategory", mostCommonCategory);
+        stats.put("category", categoryCount);
+        stats.put("priority", priorityCount);
+        stats.put("status", statusCount);
 
         return stats;
+    }
+    
+    @PostMapping("/upload")
+    public Issue uploadIssue(
+            @RequestParam String description,
+            @RequestParam String severity,
+            @RequestParam String location,
+            @RequestParam("image") MultipartFile file) throws Exception {
+
+        String fileName = file.getOriginalFilename();
+
+        Path path = Paths.get("uploads/" + fileName);
+
+        Files.write(path, file.getBytes());
+
+        String prediction = mlService.getPrediction(description, severity);
+
+        String category = prediction.split("\"category\": \"")[1].split("\"")[0];
+        String priority = prediction.split("\"priority\": \"")[1].split("\"")[0];
+
+        double predictedTime = Double.parseDouble(
+                prediction.split("\"predictedResolutionTimeHours\": ")[1]
+                        .replace("}", "")
+        );
+
+        Issue issue = new Issue();
+
+        issue.setDescription(description);
+        issue.setSeverity(severity);
+        issue.setLocation(location);
+        issue.setCategory(category);
+        issue.setPriority(priority);
+        issue.setPredictedResolutionTimeHours(predictedTime);
+        issue.setStatus("Pending");
+        issue.setImageUrl(fileName);
+
+        return issueRepository.save(issue);
     }
 }
