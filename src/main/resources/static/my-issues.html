@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>My Issues</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+<div class="logo">
+Smart Campus AI
+</div>
+
+<div class="nav-links">
+
+<a href="/student-dashboard.html">Dashboard</a>
+
+<a href="#">My Issues</a>
+
+<a href="/login.html" class="nav-login">Logout</a>
+
+</div>
+
+</div>
+
+
+
+<div class="dashboard-container">
+
+<h2 class="dashboard-title">
+My Reported Issues
+</h2>
+
+
+<div class="issue-table">
+
+<table id="issuesTable">
+
+<tr>
+<th>Description</th>
+<th>Category</th>
+<th>Priority</th>
+<th>Status</th>
+<th>Resolution Time</th>
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+
+
+<script>
+
+fetch("/issues/all")
+
+.then(res => res.json())
+
+.then(data => {
+
+let table = document.getElementById("issuesTable");
+
+data.forEach(issue => {
+
+let row = table.insertRow();
+
+row.insertCell(0).innerText = issue.description;
+
+row.insertCell(1).innerText = issue.category;
+
+row.insertCell(2).innerText = issue.priority;
+
+
+/* STATUS BADGE */
+
+let statusCell = row.insertCell(3);
+
+let badge = document.createElement("span");
+
+badge.classList.add("status");
+
+if(issue.status === "Pending"){
+badge.classList.add("pending");
+}
+
+else if(issue.status === "In Progress"){
+badge.classList.add("progress");
+}
+
+else{
+badge.classList.add("resolved");
+}
+
+badge.innerText = issue.status;
+
+statusCell.appendChild(badge);
+
+
+/* RESOLUTION TIME */
+
+row.insertCell(4).innerText =
+issue.predictedResolutionTimeHours + " hrs";
+
+});
+
+});
+
+</script>
+
+</body>
+
+</html>

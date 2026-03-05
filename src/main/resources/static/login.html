@@ -1,27 +1,139 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Campus Issue Login</title>
+
+<title>Smart Campus Issue Prioritization & Predictive Resolution System</title>
+
 <link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
 
-<h2>Campus Issue System Login</h2>
 
-<div class="form-box">
+<!-- NAVBAR -->
 
-<label>Email</label>
-<input type="text" id="email">
+<div class="navbar">
 
-<label>Password</label>
-<input type="password" id="password">
+<div class="logo">
+Smart Campus AI
+</div>
 
-<button onclick="login()">Login</button>
+<div class="nav-links">
+
+<a href="#">Home</a>
+<a href="#features">Features</a>
+
+<a href="#login" class="nav-login">
+Login
+</a>
 
 </div>
+
+</div>
+
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="hero-left">
+
+<h1>
+
+Smart Campus Issue Prioritization  
+& Predictive Resolution System
+
+</h1>
+
+<p>
+
+AI powered platform that automatically categorizes campus issues, predicts priority level and estimates resolution time using Machine Learning.
+
+</p>
+
+<a href="#login" class="hero-btn">
+
+Access System
+
+</a>
+
+</div>
+
+
+<div class="hero-right">
+
+<img src="images/chatbot.png" alt="AI System Illustration">
+
+</div>
+
+</section>
+
+
+
+<!-- FEATURES -->
+
+<section class="features" id="features">
+
+<h2>Key Features</h2>
+
+<div class="feature-grid">
+
+<div class="feature-card">
+<h3>AI Issue Categorization</h3>
+<p>Machine learning identifies issue category automatically.</p>
+</div>
+
+<div class="feature-card">
+<h3>Priority Prediction</h3>
+<p>Predicts urgency level of reported campus problems.</p>
+</div>
+
+<div class="feature-card">
+<h3>Predictive Resolution</h3>
+<p>Estimates expected resolution time for issues.</p>
+</div>
+
+<div class="feature-card">
+<h3>Image Upload</h3>
+<p>Students can upload photos as evidence.</p>
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- LOGIN -->
+
+<section class="login-section" id="login">
+
+<div class="login-card">
+
+<h2>System Login</h2>
+
+<input type="text" id="email" placeholder="Email">
+
+<input type="password" id="password" placeholder="Password">
+
+<button onclick="login()">
+
+Login
+
+</button>
+
+</div>
+
+</section>
+
 
 <script src="login.js"></script>
 
 </body>
+
 </html>

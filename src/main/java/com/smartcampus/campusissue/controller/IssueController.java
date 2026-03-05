@@ -113,13 +113,20 @@ public class IssueController {
             @RequestParam String description,
             @RequestParam String severity,
             @RequestParam String location,
-            @RequestParam("image") MultipartFile file) throws Exception {
+            @RequestParam(value="image", required=false) MultipartFile file
+    ) throws Exception {
 
-        String fileName = file.getOriginalFilename();
+        String fileName = null;
 
-        Path path = Paths.get("uploads/" + fileName);
+        // Save image only if user uploaded one
+        if(file != null && !file.isEmpty()) {
 
-        Files.write(path, file.getBytes());
+            fileName = file.getOriginalFilename();
+
+            Path path = Paths.get("uploads/" + fileName);
+
+            Files.write(path, file.getBytes());
+        }
 
         String prediction = mlService.getPrediction(description, severity);
 
@@ -140,7 +147,11 @@ public class IssueController {
         issue.setPriority(priority);
         issue.setPredictedResolutionTimeHours(predictedTime);
         issue.setStatus("Pending");
-        issue.setImageUrl(fileName);
+
+        // Only set image if uploaded
+        if(fileName != null){
+            issue.setImageUrl(fileName);
+        }
 
         return issueRepository.save(issue);
     }

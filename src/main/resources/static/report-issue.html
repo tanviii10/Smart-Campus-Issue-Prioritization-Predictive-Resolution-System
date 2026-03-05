@@ -1,13 +1,46 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+
 <title>Report Issue</title>
+
 <link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
 
-<h2>Report Campus Issue</h2>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+<div class="logo">
+Smart Campus AI
+</div>
+
+<div class="nav-links">
+
+<a href="/student-dashboard.html">Dashboard</a>
+<a href="/my-issues.html">My Issues</a>
+<a href="/login.html" class="nav-login">Logout</a>
+
+</div>
+
+</div>
+
+
+
+<div class="dashboard-container">
+
+<h2 class="dashboard-title">
+Report Campus Issue
+</h2>
+
+
 
 <div class="form-box">
 
@@ -32,14 +65,26 @@
 <option>Other</option>
 </select>
 
-<label>Upload Image</label>
+<label>Upload Image (Optional)</label>
 <input type="file" name="image">
 
-<button type="submit">Submit Issue</button>
+<button type="submit" class="primary-btn">
+Submit Issue
+</button>
 
 </form>
 
-<div id="result"></div>
+</div>
+
+
+
+<!-- ML RESULT -->
+
+<div id="result" class="prediction-box"></div>
+
+</div>
+
+
 
 <script src="report.js"></script>
 
