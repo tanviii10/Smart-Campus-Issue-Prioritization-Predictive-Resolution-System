@@ -1,6 +1,6 @@
 # Minor Project SEM-6
 
-# Tittle : Smart Campus Issue Prioritization & Predictive Resolution System
+# Smart Campus Issue Prioritization & Predictive Resolution System
 
 ## 🌟 Inspiration
 The idea for Campus Issue Reporter + Auto-Responder came from our own daily experiences as students.
