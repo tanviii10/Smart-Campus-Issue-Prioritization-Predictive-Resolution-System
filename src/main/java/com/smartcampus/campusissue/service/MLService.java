@@ -1,9 +1,9 @@
 package com.smartcampus.campusissue.service;
 
-import org.springframework.stereotype.Service;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+
+import org.springframework.stereotype.Service;
 
 @Service
 public class MLService {

@@ -866,3 +866,9 @@ box-shadow:0 10px 25px rgba(0,0,0,0.15);
 margin-bottom:10px;
 
 }
+.login-section{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:80vh;
+}

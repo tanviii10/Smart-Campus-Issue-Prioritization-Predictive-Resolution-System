@@ -15,7 +15,7 @@ public class Issue {
     private String priority;
     private double predictedResolutionTimeHours;
     private String status;
-    
+
     private String location;
     private String imageUrl;
 

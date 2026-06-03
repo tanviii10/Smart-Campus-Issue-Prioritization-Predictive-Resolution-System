@@ -1,9 +1,5 @@
 package com.smartcampus.campusissue.controller;
 
-import com.smartcampus.campusissue.model.Issue;
-import com.smartcampus.campusissue.repository.IssueRepository;
-import com.smartcampus.campusissue.service.MLService;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,8 +8,18 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.smartcampus.campusissue.model.Issue;
+import com.smartcampus.campusissue.repository.IssueRepository;
+import com.smartcampus.campusissue.service.MLService;
 
 @RestController
 @RequestMapping("/issues")
@@ -57,7 +63,7 @@ public class IssueController {
     public List<Issue> getAllIssues() {
         return issueRepository.findAll();
     }
-    
+
     @PutMapping("/updateStatus/{id}")
     public Issue updateStatus(@PathVariable String id,
                               @RequestParam String status) {
@@ -71,7 +77,7 @@ public class IssueController {
 
         return null;
     }
-    
+
     @GetMapping("/stats")
     public Map<String, Object> getStats() {
 
@@ -107,7 +113,7 @@ public class IssueController {
 
         return stats;
     }
-    
+
     @PostMapping("/upload")
     public Issue uploadIssue(
             @RequestParam String description,
