@@ -443,6 +443,6 @@ campusissue
 
 # Author
 
-Project developed as part of Minor Project (Semester 6)
+*Tanvi V Jagtap
 
 ---
