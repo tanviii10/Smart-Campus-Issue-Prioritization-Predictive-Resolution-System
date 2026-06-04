@@ -39,6 +39,10 @@ public class IssueController {
         String prediction = mlService.getPrediction(description, severity);
 
         System.out.println("ML Output: " + prediction);
+        
+        if(prediction == null || prediction.isEmpty()) {
+            throw new RuntimeException("Python returned empty output");
+        }
 
         // simple JSON parsing
         String category = prediction.split("\"category\": \"")[1].split("\"")[0];

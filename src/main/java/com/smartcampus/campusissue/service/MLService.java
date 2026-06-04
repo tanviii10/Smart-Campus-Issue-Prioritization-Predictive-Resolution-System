@@ -29,10 +29,14 @@ public class MLService {
             StringBuilder output = new StringBuilder();
 
             while ((line = reader.readLine()) != null) {
+                System.out.println("PYTHON OUTPUT: " + line);
                 output.append(line);
             }
 
-            process.waitFor();
+            int exitCode = process.waitFor();
+
+            System.out.println("Python Exit Code = " + exitCode);
+            System.out.println("Final Python Output = " + output.toString());
 
             return output.toString();
 
