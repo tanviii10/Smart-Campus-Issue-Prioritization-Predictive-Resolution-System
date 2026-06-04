@@ -12,7 +12,7 @@ public class MLService {
         try {
 
         	ProcessBuilder processBuilder = new ProcessBuilder(
-        	        "python",
+        	        "python3",
         	        "CampusML/predict_issue.py",
         	        description,
         	        severity
